@@ -3,6 +3,7 @@ import React from "react";
 
 import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
+import LogoAndName from "../components/LogoAndName";
 
 function Navbar() {
   const { userId } = useAuth();
@@ -16,20 +17,7 @@ function Navbar() {
         <div className="sm:flex sm:items-center sm:justify-between">
           <div className="text-center sm:text-left mb-7 sm:mb-0">
             {/* icon + name */}
-            <div className="flex gap-2 items-center sm:justify-start justify-center">
-              <span className="text-2xl font-light flex items-center gap-2 ">
-                {/* icon */}
-                <div
-                  style={backgroundColourObject}
-                  className="p-2 rounded-md"
-                ></div>
-                {/* name */}
-                <span style={{ color: "#5A639C" }} className="font-bold">
-                  Life
-                </span>
-                <span>Tracker</span>
-              </span>
-            </div>
+            <LogoAndName />
           </div>
           {/* buttons */}
           <div>
