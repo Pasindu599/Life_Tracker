@@ -11,10 +11,11 @@ function HeroSection() {
       <p className="text-center text-sm sm:w-[430px] w-[370px]">
         Welcome to LifeTrack, where we help you rise and shine each day. Our app
         is designed to help you seize the day, stay on top of your tasks, and
-        break the mold. Whether you're setting new goals or building healthy
-        habits, LifeTrack is here to keep you in the groove. Let's get the ball
-        rolling and make every moment count!
+        break the mold. Whether you&#39;re setting new goals or building healthy
+        habits, LifeTrack is here to keep you in the groove. Let&#39;s get the
+        ball rolling and make every moment count!
       </p>
+
       <button
         className={`block text-sm font-light rounded-lg px-9 py-3 text-white transition bg-mainColor focus:outline-none hover:bg-thirdColor border-mainColor border-mainColor`}
       >
