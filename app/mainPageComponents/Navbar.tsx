@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import AppIcon from "../svg_icons/AppIcon";
+
 import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 
