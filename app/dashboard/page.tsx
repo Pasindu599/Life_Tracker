@@ -7,6 +7,8 @@ import { MenuItemType } from "../types/MenuItemType";
 import AllTasks from "../pages/AllTasks/AllTasks";
 import Statistics from "../pages/Statistics/Statistics";
 import Areas from "../pages/Areas/Areas";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 function Dashboard() {
   const { menuItemsObject } = useGlobalContextProvider();
@@ -37,8 +39,10 @@ function Dashboard() {
   }
   return (
     <div className="flex  bg-blue-100">
-      <Sidebar />
-      {selectComponent}
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <Sidebar />
+        {selectComponent}
+      </LocalizationProvider>
     </div>
   );
 }
