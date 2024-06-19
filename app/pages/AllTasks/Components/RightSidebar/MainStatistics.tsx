@@ -1,3 +1,4 @@
+"use client";
 import { CircularProgress } from "@mui/material";
 import { PieChart } from "recharts";
 import { Pie, Cell } from "recharts";
@@ -17,7 +18,7 @@ function MainStatistics() {
     },
   ];
   return (
-    <div className="flex mx-4 flex-col gap-6 justify-center items-center mt-20 bg-blue-100 rounded-xl p-5 pt-7">
+    <div className="flex mx-4 flex-col gap-6 justify-center items-center mt-14 bg-blue-100 rounded-xl w-full pt-7">
       <span className="font-bold text-xl cursor-pointer  hover:text-mainColor">
         Statistics
       </span>

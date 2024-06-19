@@ -1,3 +1,4 @@
+"use client";
 import { useGlobalContextProvider } from "@/app/ContextApi";
 import { MenuItemType } from "@/app/types/MenuItemType";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

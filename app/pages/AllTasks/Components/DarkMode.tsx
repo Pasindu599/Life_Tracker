@@ -1,27 +1,73 @@
-import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+"use client";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import { useGlobalContextProvider } from "@/app/ContextApi";
+import React, { useEffect } from "react";
 
 function DarkMode() {
+  const { darkModeObject } = useGlobalContextProvider();
+  const { isDarkMode, setIsDarkMode, darkModeItems, setDarkModeItems } =
+    darkModeObject;
+
+  function handleClickedItem(singleItemIndex: number) {
+    console.log(singleItemIndex);
+
+    const updatedDarkModeItems = darkModeItems.map((darkModeItem, index) => {
+      if (index === singleItemIndex) {
+        return {
+          ...darkModeItem,
+          isSelected: true,
+        };
+      }
+      return {
+        ...darkModeItem,
+        isSelected: false,
+      };
+    });
+    setDarkModeItems(updatedDarkModeItems);
+  }
+
+  useEffect(() => {
+    darkModeItems.forEach((singleItem) => {
+      if (singleItem.id === 1 && singleItem.isSelected) {
+        setIsDarkMode(false);
+      }
+      if (singleItem.id === 2 && singleItem.isSelected) {
+        setIsDarkMode(true);
+      }
+    });
+  }, [darkModeItems, setIsDarkMode]);
+
+  console.log(isDarkMode);
+
   return (
     <div className="flex relative rounded-3xl bg-blue-100 w-[90px]">
-      <div className="h-full w-[45px] z-40 flex justify-center items-center">
-        <FontAwesomeIcon
-          icon={faSun}
-          className="text-mainColor"
-          height={20}
-          width={20}
-        />
-      </div>
-      <div className="h-full w-[45px] z-40 flex justify-center items-center opacity-100">
-        <FontAwesomeIcon
-          icon={faMoon}
-          className="text-gray-500"
-          height={20}
-          width={20}
-        />
-      </div>
-      <div className="w-[38px] absolute h-[38px] top-1 left-[4px] rounded-full bg-white"></div>
+      {darkModeItems.map((singleItem, singleItemIndex) => (
+        <div
+          key={singleItemIndex}
+          onClick={() => {
+            handleClickedItem(singleItemIndex);
+          }}
+          className="h-full w-[45px] z-40 flex justify-center items-center"
+        >
+          <FontAwesomeIcon
+            icon={singleItem.icon}
+            className={`
+          ${
+            singleItem.isSelected ? "text-purple-500" : "text-gray-500"
+          } cursor-pointer
+          `}
+            height={20}
+            width={20}
+          />
+        </div>
+      ))}
+
+      <div
+        className={`w-[38px] absolute h-[38px]  top-2 lg:top-1 transform ${
+          isDarkMode ? `translate-x-[48px]` : `translate-x-1`
+        } bg-mainColor  rounded-full transition-all`}
+      ></div>
     </div>
   );
 }

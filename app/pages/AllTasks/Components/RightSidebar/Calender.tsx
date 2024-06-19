@@ -1,9 +1,10 @@
+"use client";
 import React from "react";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 
 function Calender() {
   return (
-    <div className="flex mx-7 flex-col gap-6 justify-center items-center mt-10 bg-blue-100 rounded-xl pt-7">
+    <div className="flex w-full flex-col gap-6 justify-center items-center mt-10 bg-blue-100 rounded-xl pt-7">
       <DateCalendar
         sx={{
           "& .MuiPickersDay-root": {

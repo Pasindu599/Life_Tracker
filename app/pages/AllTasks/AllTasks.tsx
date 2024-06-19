@@ -6,8 +6,8 @@ import TasksCompleted from "./Components/TasksCompleted";
 
 function AllTasks() {
   return (
-    <div className="w-full flex ">
-      <div className="w-[70%] m-5">
+    <div className="max-lg:flex-col w-full flex ">
+      <div className="flex-col flex-grow  m-3">
         <AllTasksTopbar />
         <TaskContainer />
         <TasksCompleted />

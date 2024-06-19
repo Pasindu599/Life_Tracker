@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 
 function LogoAndName() {
@@ -14,7 +15,7 @@ function LogoAndName() {
         <span style={{ color: "#5A639C" }} className="font-bold">
           Life
         </span>
-        <span>Tracker</span>
+        <span className="text-thirdColor">Tracker</span>
       </span>
     </div>
   );

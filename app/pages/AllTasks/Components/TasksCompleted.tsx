@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Checkbox, IconButton } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

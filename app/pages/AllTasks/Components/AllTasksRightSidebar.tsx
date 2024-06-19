@@ -4,7 +4,7 @@ import Calender from "./RightSidebar/Calender";
 
 function RightSidebar() {
   return (
-    <div className="w-[30%] flex flex-col items-center bg-white ">
+    <div className="max-lg:flex-grow  lg:w-[30%] flex flex-col items-center bg-white m-5 rounded-lg p-2">
       <UserProfile />
       <MainStatistics />
       <Calender />

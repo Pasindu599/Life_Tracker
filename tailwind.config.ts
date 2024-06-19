@@ -18,6 +18,11 @@ const config: Config = {
         secondColor: "#7776B3",
         thirdColor: "#9B86BD",
         fourthColor: "#E2BBE9",
+
+        darkMainColor: "#070F2B",
+        darkSecondColor: "#1B1A55",
+        darkThirdColor: "#535C91",
+        darkFourthColor: "#9290C3",
       },
     },
   },
