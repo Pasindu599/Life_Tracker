@@ -33,6 +33,11 @@ const GlobalContext = createContext<GlobalContextType>({
     darkModeItems: [],
     setDarkModeItems: () => {},
   },
+
+  openTaskObject: {
+    openTask: false,
+    setOpenTask: () => {},
+  },
 });
 
 function GlobalContextProvider({ children }: { children: ReactNode }) {
@@ -61,6 +66,7 @@ function GlobalContextProvider({ children }: { children: ReactNode }) {
 
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [openTask, setOpenTask] = useState<boolean>(false);
   return (
     <GlobalContext.Provider
       value={{
@@ -77,6 +83,10 @@ function GlobalContextProvider({ children }: { children: ReactNode }) {
           setIsDarkMode,
           darkModeItems,
           setDarkModeItems,
+        },
+        openTaskObject: {
+          openTask,
+          setOpenTask,
         },
       }}
     >

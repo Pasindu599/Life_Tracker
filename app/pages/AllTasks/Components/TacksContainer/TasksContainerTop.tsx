@@ -3,8 +3,12 @@ import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutl
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useGlobalContextProvider } from "@/app/ContextApi";
 
 function TasksContainerTop() {
+  const { openTaskObject, darkModeObject } = useGlobalContextProvider();
+  const { openTask, setOpenTask } = openTaskObject;
+  const { isDarkMode } = darkModeObject;
   return (
     <div className="p-3 flex justify-between items-center ">
       <div className="flex gap-4 items-center ">
@@ -22,7 +26,10 @@ function TasksContainerTop() {
           </div>
         </div>
       </div>
-      <button className="flex gap-2 items-center bg-mainColor text-white rounded-md text-sm p-3">
+      <button
+        onClick={() => setOpenTask(true)}
+        className="flex gap-2 items-center bg-mainColor text-white rounded-md text-sm p-3"
+      >
         <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
         <span>Add Task</span>
       </button>

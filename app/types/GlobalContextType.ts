@@ -32,4 +32,9 @@ export type GlobalContextType = {
       >
     >;
   };
+
+  openTaskObject: {
+    openTask: boolean;
+    setOpenTask: Dispatch<SetStateAction<boolean>>;
+  };
 };

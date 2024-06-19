@@ -3,10 +3,12 @@ import AllTasksTopbar from "./Components/AllTasksTopbar";
 import AllTasksRightSidebar from "./Components/AllTasksRightSidebar";
 import TaskContainer from "./Components/TasksContainer";
 import TasksCompleted from "./Components/TasksCompleted";
+import TaskWindow from "./Components/TaskWindow";
 
 function AllTasks() {
   return (
-    <div className="max-lg:flex-col w-full flex ">
+    <div className="max-lg:flex-col w-full flex flex-row gap-0 relative ">
+      <TaskWindow />
       <div className="flex-col flex-grow  m-3">
         <AllTasksTopbar />
         <TaskContainer />
