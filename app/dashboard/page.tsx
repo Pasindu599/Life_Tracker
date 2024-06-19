@@ -36,7 +36,7 @@ function Dashboard() {
       selectComponent = <div>Error</div>;
   }
   return (
-    <div className="flex">
+    <div className="flex  bg-blue-100">
       <Sidebar />
       {selectComponent}
     </div>
