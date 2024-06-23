@@ -37,4 +37,9 @@ export type GlobalContextType = {
     openTask: boolean;
     setOpenTask: Dispatch<SetStateAction<boolean>>;
   };
+
+  openTimePickerObject: {
+    openTimePicker: boolean;
+    setOpenTimePicker: Dispatch<SetStateAction<boolean>>;
+  };
 };

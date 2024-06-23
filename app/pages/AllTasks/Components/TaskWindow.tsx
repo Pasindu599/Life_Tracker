@@ -9,12 +9,15 @@ import {
 import { setTimeout } from "timers/promises";
 import IconsWindow from "./IconsWindow/IconsWindow";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import TimePicker from "./TimePicker";
 
 type TaskType = {
   _id: string;
   name: string;
   icon: IconProp;
   frequency: FrequencyType[];
+  notificationTime: string;
+  isNotification: boolean;
 };
 
 type RepeatOption = {
@@ -38,8 +41,10 @@ const HeaderMemo = memo(Header);
 const InputNameButtonMemo = memo(InputNameButton);
 
 function TaskWindow() {
-  const { openTaskObject, darkModeObject } = useGlobalContextProvider();
+  const { openTaskObject, darkModeObject, openTimePickerObject } =
+    useGlobalContextProvider();
   const { openTask, setOpenTask } = openTaskObject;
+  const { openTimePicker, setOpenTimePicker } = openTimePickerObject;
   const { isDarkMode } = darkModeObject;
   const [taskName, setTaskName] = React.useState<TaskType>({
     _id: "",
@@ -52,6 +57,8 @@ function TaskWindow() {
         numberOfWeeks: 1,
       },
     ],
+    notificationTime: "",
+    isNotification: false,
   });
   const [openIconsWindow, setOpenIconsWindow] = React.useState<boolean>(false);
   const [iconSelected, setIconSelected] = React.useState<IconProp>(
@@ -63,6 +70,10 @@ function TaskWindow() {
       name: inputText,
     });
   };
+
+  useEffect(() => {
+    setOpenTimePicker(false);
+  }, [openTask]);
 
   function changeRepeatOption(repeatOptions: RepeatOption[]) {
     const filterIsSlected = repeatOptions.filter(
@@ -92,18 +103,31 @@ function TaskWindow() {
     setTaskName(copyTasksItems);
   }
 
+  function updateReminderTime(timeValue: string) {
+    const copyTaskItem = { ...taskName };
+    copyTaskItem.notificationTime = timeValue;
+    setTaskName(copyTaskItem);
+  }
+
   useEffect(() => {
     setTaskName({
       ...taskName,
       icon: iconSelected,
     });
   }, [iconSelected]);
+
+  useEffect(() => {
+    if (taskName.isNotification === false) {
+      setTaskName({ ...taskName, notificationTime: "" });
+    }
+  }, [taskName.isNotification]);
   return (
     <div
       className={`top-[3%] left-1/2 transform -translate-x-1/2 w-[80%] z-50 p-10 rounded-md shadow-md ${
         openTask ? `absolute` : `hidden`
       } bg-thirdColor`}
     >
+      <TimePicker onSaveTime={updateReminderTime} />
       <IconsWindow
         openIconsWindow={openIconsWindow}
         setOpenIconsWindow={setOpenIconsWindow}
@@ -122,7 +146,7 @@ function TaskWindow() {
         onChangeDayOption={changeDayOption}
         onChangeWeeksOption={changeWeeksOption}
       />
-      <Reminder />
+      <Reminder task={taskName} setTask={setTaskName} />
       <SaveButton task={taskName} />
     </div>
   );
@@ -407,14 +431,38 @@ function WeeklyOption({
   );
 }
 
-function Reminder() {
-  const { openTaskObject, darkModeObject } = useGlobalContextProvider();
+function Reminder({
+  task,
+  setTask,
+}: {
+  task: TaskType;
+  setTask: React.Dispatch<React.SetStateAction<TaskType>>;
+}) {
+  const { openTaskObject, darkModeObject, openTimePickerObject } =
+    useGlobalContextProvider();
   const { openTask, setOpenTask } = openTaskObject;
+  const { openTimePicker, setOpenTimePicker } = openTimePickerObject;
   const { isDarkMode } = darkModeObject;
   const [isOn, setIsOn] = React.useState<boolean>(false);
 
   function updateToggle() {
+    const copyTaskItem = { ...task };
+    copyTaskItem.isNotification = !isOn;
+    setTask(copyTaskItem);
+
     setIsOn((prev) => !prev);
+  }
+
+  // useEffect(() => {
+  //   const copyTaskItem = { ...task };
+  //   if (copyTaskItem.isNotification === false) {
+  //     copyTaskItem.notificationTime = " ";
+  //   }
+  //   setTask(copyTaskItem);
+  // }, [task.isNotification]);
+
+  function handleOpenTimerPicker() {
+    setOpenTimePicker(!openTimePicker);
   }
 
   return (
@@ -426,8 +474,13 @@ function Reminder() {
       {isOn && (
         <div className="flex justify-between p-4 m-2 mt-8 rounded-md border ">
           <span>Select Time</span>
-          <div className="flex gap-2 items-center justify-center cursor-pointer select-none">
-            <span>08.:00 AM</span>
+          <div
+            onClick={handleOpenTimerPicker}
+            className="flex gap-2 items-center justify-center cursor-pointer select-none"
+          >
+            <span>
+              {task.notificationTime === "" ? "none" : task.notificationTime}
+            </span>
             <FontAwesomeIcon icon={faChevronDown} height={12} width={12} />
           </div>
         </div>

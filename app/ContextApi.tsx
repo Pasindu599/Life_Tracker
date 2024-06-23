@@ -38,6 +38,11 @@ const GlobalContext = createContext<GlobalContextType>({
     openTask: false,
     setOpenTask: () => {},
   },
+
+  openTimePickerObject: {
+    openTimePicker: false,
+    setOpenTimePicker: () => {},
+  },
 });
 
 function GlobalContextProvider({ children }: { children: ReactNode }) {
@@ -67,6 +72,8 @@ function GlobalContextProvider({ children }: { children: ReactNode }) {
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [openTask, setOpenTask] = useState<boolean>(false);
+  const [openTimePicker, setOpenTimePicker] = useState<boolean>(true);
+
   return (
     <GlobalContext.Provider
       value={{
@@ -87,6 +94,10 @@ function GlobalContextProvider({ children }: { children: ReactNode }) {
         openTaskObject: {
           openTask,
           setOpenTask,
+        },
+        openTimePickerObject: {
+          openTimePicker,
+          setOpenTimePicker,
         },
       }}
     >
