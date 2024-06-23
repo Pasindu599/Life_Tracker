@@ -309,13 +309,13 @@ function Repeat({
   return (
     <div className="flex flex-col gap-2 mt-10 px-3 ">
       <span className="font-semibold text-[17px]">Repeat</span>
-      <div className="flex gap-4 mt-2 items-center">
+      <div className="flex flex-row gap-4 mt-2 items-center overflow-x-auto ">
         {repeatOptions.map((option, index) => {
           return (
             <button
               key={index}
               onClick={() => changeOption(index)}
-              className={`p-2 rounded-md border border-gray-200 ${
+              className={`p-2 flex  rounded-md border border-gray-200 ${
                 option.isSelected ? `bg-mainColor text-white` : `bg-white`
               }`}
             >
@@ -367,7 +367,7 @@ function DailyOptions({
   return (
     <div className="mt-5 flex flex-col gap-4">
       <span className="font-medium opacity-85">On these days</span>
-      <div className="flex gap-3 w-full">
+      <div className="flex gap-3 w-full overflow-x-auto">
         {allDays.map((day, index) => (
           <span
             onClick={() => IsSelectedDays(index)}
