@@ -115,3 +115,52 @@ export const iconsData: iconData[] = [
     isSelect: false,
   },
 ];
+
+export function textToIcon(iconText: string): IconProp | string {
+  switch (iconText) {
+    case "faCheckSquare":
+      return faCheckSquare;
+    case "faClock":
+      return faClock;
+    case "faExclamationTriangle":
+      return faExclamationTriangle;
+    case "faFlag":
+      return faFlag;
+    case "faList":
+      return faList;
+    case "faPen":
+      return faPen;
+    case "faPlus":
+      return faPlus;
+    case "faSearch":
+      return faSearch;
+    case "faSortAmountDown":
+      return faSortAmountDown;
+    case "faSortAmountUp":
+      return faSortAmountUp;
+    case "faSortNumericDown":
+      return faSortNumericDown;
+    case "faSortNumericUp":
+      return faSortNumericUp;
+    case "faSortUp":
+      return faSortUp;
+    case "faSquare":
+      return faSquare;
+    case "faStar":
+      return faStar;
+    case "faTimes":
+      return faTimes;
+    case "faTrash":
+      return faTrash;
+    case "faUser":
+      return faUser;
+    case "faUserCircle":
+      return faUserCircle;
+    case "faUserPlus":
+      return faUserPlus;
+    case "faUserTimes":
+      return faUserTimes;
+    default:
+      return faCheckSquare;
+  }
+}

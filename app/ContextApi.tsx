@@ -1,16 +1,33 @@
 "use client";
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { GlobalContextType } from "./types/GlobalContextType";
-import { MenuItemType } from "./types/MenuItemType";
+import {
+  AreaType,
+  FrequencyType,
+  MenuItemType,
+  TaskType,
+} from "./types/MenuItemType";
 import {
   faChartSimple,
+  faCode,
+  faGraduationCap,
   faLayerGroup,
   faRectangleAd,
   faRectangleList,
+  faUser,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
+import { textToIcon } from "./pages/AllTasks/Components/IconsWindow/IconsData";
+import { getDateString } from "@/utils/allTasksUtils/DateFunctions";
 
 type DarkModeItems = {
   id: number;
@@ -43,6 +60,25 @@ const GlobalContext = createContext<GlobalContextType>({
     openTimePicker: false,
     setOpenTimePicker: () => {},
   },
+
+  allAreasObject: {
+    allAreas: [],
+    setAllAreas: () => {},
+  },
+  allTasksObject: {
+    allTasks: [],
+    setAllTasks: () => {},
+  },
+
+  selectedCurrentDateObject: {
+    selectedCurrentDate: "",
+    setSelectedCurrentDate: () => {},
+  },
+
+  offSetDayObject: {
+    offSetDay: 0,
+    setOffSetDay: () => {},
+  },
 });
 
 function GlobalContextProvider({ children }: { children: ReactNode }) {
@@ -69,10 +105,60 @@ function GlobalContextProvider({ children }: { children: ReactNode }) {
     { id: 2, icon: faMoon, isSelected: false },
   ]);
 
+  const [allAreas, setAllAreas] = useState<AreaType[]>([
+    {
+      id: 1,
+      icon: faUsers,
+      name: "All",
+    },
+    {
+      id: 2,
+      icon: faGraduationCap,
+      name: "Study",
+    },
+    {
+      id: 3,
+      icon: faCode,
+      name: "Code",
+    },
+  ]);
+
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [openTask, setOpenTask] = useState<boolean>(false);
   const [openTimePicker, setOpenTimePicker] = useState<boolean>(true);
+  const [allTasks, setAllTasks] = useState<TaskType[]>([]);
+  const [offSetDay, setOffSetDay] = useState<number>(0);
+  const [selectedCurrentDate, setSelectedCurrentDate] = useState<string>(() =>
+    getDateString(new Date())
+  );
+
+  // useEffect(() => {
+  //   function fetchData() {
+  //     const allTasksData: TaskType[] = [
+  //       {
+  //         _id: "",
+  //         name: "",
+  //         icon: textToIcon("faTools") as IconProp,
+  //         frequency: [
+  //           {
+  //             type: "Daily",
+  //             days: [],
+  //             numberOfWeeks: 1,
+  //           },
+  //         ],
+  //         notificationTime: "",
+  //         isNotification: false,
+  //         areas: [],
+  //       },
+  //     ];
+  //     setTimeout(() => {
+  //       setAllTasks(allTasksData);
+  //     }, 1000);
+
+  //     fetchData();
+  //   }
+  // }, []);
 
   return (
     <GlobalContext.Provider
@@ -98,6 +184,22 @@ function GlobalContextProvider({ children }: { children: ReactNode }) {
         openTimePickerObject: {
           openTimePicker,
           setOpenTimePicker,
+        },
+        allAreasObject: {
+          allAreas,
+          setAllAreas,
+        },
+        allTasksObject: {
+          allTasks,
+          setAllTasks,
+        },
+        selectedCurrentDateObject: {
+          selectedCurrentDate,
+          setSelectedCurrentDate,
+        },
+        offSetDayObject: {
+          offSetDay,
+          setOffSetDay,
         },
       }}
     >

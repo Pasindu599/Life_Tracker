@@ -57,7 +57,7 @@ function AllTasksTopBar() {
       </div>
       <div className="w-[50%] max-md:w-[80%] flex gap-3 justify-between">
         <AllTasksSearchbar />
-        <DarkMode />
+        {/* <DarkMode /> */}
         <FontAwesomeIcon
           onClick={handleSidebar}
           className="m-2 max-xl:flex hidden mt-[13px] cursor-pointer"

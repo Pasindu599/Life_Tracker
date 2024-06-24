@@ -1,6 +1,6 @@
 import { set } from "mongoose";
 import React, { SetStateAction, Dispatch } from "react";
-import { MenuItemType } from "./MenuItemType";
+import { AreaType, MenuItemType, TaskType } from "./MenuItemType";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 export type GlobalContextType = {
@@ -41,5 +41,25 @@ export type GlobalContextType = {
   openTimePickerObject: {
     openTimePicker: boolean;
     setOpenTimePicker: Dispatch<SetStateAction<boolean>>;
+  };
+
+  allAreasObject: {
+    allAreas: AreaType[];
+    setAllAreas: Dispatch<SetStateAction<AreaType[]>>;
+  };
+
+  allTasksObject: {
+    allTasks: TaskType[];
+    setAllTasks: Dispatch<SetStateAction<TaskType[]>>;
+  };
+
+  selectedCurrentDateObject: {
+    selectedCurrentDate: string;
+    setSelectedCurrentDate: Dispatch<SetStateAction<string>>;
+  };
+
+  offSetDayObject: {
+    offSetDay: number;
+    setOffSetDay: Dispatch<SetStateAction<number>>;
   };
 };

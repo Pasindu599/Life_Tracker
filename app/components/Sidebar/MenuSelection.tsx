@@ -1,5 +1,6 @@
 "use client";
 import { useGlobalContextProvider } from "@/app/ContextApi";
+import DarkMode from "@/app/pages/AllTasks/Components/DarkMode";
 import { MenuItemType } from "@/app/types/MenuItemType";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
@@ -14,6 +15,8 @@ function MenuSelection() {
           <SingleMenuItem menuItemProp={menuItem} />
         </div>
       ))}
+
+      {/* <DarkMode /> */}
     </div>
   );
 }

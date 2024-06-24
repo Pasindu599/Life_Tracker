@@ -1,3 +1,4 @@
+"use client";
 import React, { memo, useEffect, useRef } from "react";
 import { useGlobalContextProvider } from "@/app/ContextApi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,6 +11,10 @@ import { setTimeout } from "timers/promises";
 import IconsWindow from "./IconsWindow/IconsWindow";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import TimePicker from "./TimePicker";
+import { AreaType } from "@/app/types/MenuItemType";
+import TaskWindowArea from "./TaskWindow/TaskWindowArea";
+import addNewTask from "@/utils/allTasksUtils/addNewTask";
+import toast, { Toaster } from "react-hot-toast";
 
 type TaskType = {
   _id: string;
@@ -18,6 +23,7 @@ type TaskType = {
   frequency: FrequencyType[];
   notificationTime: string;
   isNotification: boolean;
+  areas: AreaType[];
 };
 
 type RepeatOption = {
@@ -41,9 +47,14 @@ const HeaderMemo = memo(Header);
 const InputNameButtonMemo = memo(InputNameButton);
 
 function TaskWindow() {
-  const { openTaskObject, darkModeObject, openTimePickerObject } =
-    useGlobalContextProvider();
+  const {
+    openTaskObject,
+    darkModeObject,
+    openTimePickerObject,
+    allTasksObject,
+  } = useGlobalContextProvider();
   const { openTask, setOpenTask } = openTaskObject;
+  const { allTasks, setAllTasks } = allTasksObject;
   const { openTimePicker, setOpenTimePicker } = openTimePickerObject;
   const { isDarkMode } = darkModeObject;
   const [taskName, setTaskName] = React.useState<TaskType>({
@@ -59,7 +70,9 @@ function TaskWindow() {
     ],
     notificationTime: "",
     isNotification: false,
+    areas: [],
   });
+
   const [openIconsWindow, setOpenIconsWindow] = React.useState<boolean>(false);
   const [iconSelected, setIconSelected] = React.useState<IconProp>(
     taskName.icon
@@ -73,6 +86,12 @@ function TaskWindow() {
 
   useEffect(() => {
     setOpenTimePicker(false);
+    if (openTask === true) {
+      setTaskName({
+        ...taskName,
+        areas: [],
+      });
+    }
   }, [openTask]);
 
   function changeRepeatOption(repeatOptions: RepeatOption[]) {
@@ -106,6 +125,12 @@ function TaskWindow() {
   function updateReminderTime(timeValue: string) {
     const copyTaskItem = { ...taskName };
     copyTaskItem.notificationTime = timeValue;
+    setTaskName(copyTaskItem);
+  }
+
+  function getSelectedAreaItems(selectedAreasItems: AreaType[]) {
+    const copyTaskItem = { ...taskName };
+    copyTaskItem.areas = selectedAreasItems;
     setTaskName(copyTaskItem);
   }
 
@@ -147,6 +172,7 @@ function TaskWindow() {
         onChangeWeeksOption={changeWeeksOption}
       />
       <Reminder task={taskName} setTask={setTaskName} />
+      <TaskWindowArea onChange={getSelectedAreaItems} />
       <SaveButton task={taskName} />
     </div>
   );
@@ -222,13 +248,33 @@ function InputNameButton({
 }
 
 function SaveButton({ task }: { task: TaskType }) {
+  const { openTaskObject, darkModeObject, allTasksObject } =
+    useGlobalContextProvider();
+  const { openTask, setOpenTask } = openTaskObject;
+  const { isDarkMode } = darkModeObject;
+  const { allTasks, setAllTasks } = allTasksObject;
+
+  function checkNewHabitObject() {
+    if (task.name.trim() === "") {
+      return toast.error("Task name cannot be empty");
+    }
+    const taskExist = allTasks.some(
+      (singleTask) => singleTask.name === task.name
+    );
+
+    if (!taskExist) {
+      addNewTask({ allTasks, setAllTasks, newTask: task });
+      console.log(task, "Task added");
+      setOpenTask(false);
+    } else {
+      toast.error("Task already exist");
+    }
+  }
   return (
     <div className="w-full flex justify-end mt-9">
       <button
         className="bg-mainColor text-white p-4 rounded-md w-[50%] hover:bg-secondColor"
-        onClick={() => {
-          console.log(task);
-        }}
+        onClick={checkNewHabitObject}
       >
         Add Task
       </button>

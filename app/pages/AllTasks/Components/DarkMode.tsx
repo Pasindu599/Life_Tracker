@@ -41,7 +41,7 @@ function DarkMode() {
   console.log(isDarkMode);
 
   return (
-    <div className="flex relative rounded-3xl bg-blue-100 w-[90px]">
+    <div className="flex relative ml-7  h-[38px]   rounded-3xl bg-blue-100  w-[90px]">
       {darkModeItems.map((singleItem, singleItemIndex) => (
         <div
           key={singleItemIndex}
@@ -64,7 +64,7 @@ function DarkMode() {
       ))}
 
       <div
-        className={`w-[38px] absolute h-[38px]  top-2 lg:top-1 transform ${
+        className={`w-[38px] absolute h-[38px]  top-0 transform ${
           isDarkMode ? `translate-x-[48px]` : `translate-x-1`
         } bg-mainColor  rounded-full transition-all`}
       ></div>

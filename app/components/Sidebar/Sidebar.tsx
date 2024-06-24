@@ -5,6 +5,7 @@ import MenuSelection from "./MenuSelection";
 import LogOutSection from "./LogOutSection";
 import { useGlobalContextProvider } from "@/app/ContextApi";
 import { useEffect } from "react";
+import DarkMode from "@/app/pages/AllTasks/Components/DarkMode";
 
 function Sidebar() {
   const { darkModeObject } = useGlobalContextProvider();
@@ -37,6 +38,7 @@ function Sidebar() {
     >
       <LogoAndName />
       <MenuSelection />
+      <DarkMode />
       <LogOutSection />
     </div>
   );

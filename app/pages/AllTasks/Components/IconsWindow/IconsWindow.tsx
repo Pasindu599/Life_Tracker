@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { iconsData } from "./IconsData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

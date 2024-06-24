@@ -1,3 +1,4 @@
+"use client";
 import Checkbox from "@mui/material/Checkbox";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import CheckCircle from "@mui/icons-material/CheckCircle";
@@ -7,18 +8,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode } from "@fortawesome/free-solid-svg-icons";
 import { IconButton } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useGlobalContextProvider } from "@/app/ContextApi";
+import { TaskType } from "@/app/types/MenuItemType";
 
 function TasksContainerMiddle() {
+  const { allTasksObject } = useGlobalContextProvider();
+  const { allTasks } = allTasksObject;
   return (
     <div className="border border-mainColor p-3">
-      <HabitCard />
+      {/* <HabitCard /> */}
+      {allTasks.map((task, index) => (
+        <div key={index}>
+          <HabitCard task={task} />
+        </div>
+      ))}
     </div>
   );
 }
 
 export default TasksContainerMiddle;
 
-function HabitCard() {
+function HabitCard({ task }: { task: TaskType }) {
+  const { darkModeObject } = useGlobalContextProvider();
+  const { isDarkMode } = darkModeObject;
+
   return (
     <div className="flex p-3 items-center justify-between border border-secondColor">
       <Checkbox
@@ -37,22 +50,21 @@ function HabitCard() {
           <div className="flex gap-2 justify-between border border-thirdColor">
             <div className="flex gap-2 items-center">
               <FontAwesomeIcon
-                icon={faCode}
+                icon={task.icon}
                 className="bg-mainColor p-3 rounded-full w-4 h-4 text-white"
                 height={20}
                 width={20}
               />
-              <span>Coding</span>
+              <span>{task.name}</span>
             </div>
           </div>
           {/* Area  */}
           <div className="flex gap-2 mt-2 border border-yellow-500">
-            <div className="p-1 text-white text-[12px] rounded-md px-2 bg-mainColor">
-              <span>Area1</span>
-            </div>
-            <div className="p-1 text-white text-[12px] rounded-md px-2 bg-mainColor">
-              <span>Area1</span>
-            </div>
+            {task.areas.map((singleArea, index) => (
+              <div className="p-1 text-white text-[12px] rounded-md px-2 bg-mainColor">
+                <span>{singleArea.name}</span>
+              </div>
+            ))}
           </div>
         </div>
         {/* three dot button  */}
