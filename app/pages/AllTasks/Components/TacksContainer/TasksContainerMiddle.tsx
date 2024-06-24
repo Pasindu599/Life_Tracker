@@ -61,7 +61,10 @@ function HabitCard({ task }: { task: TaskType }) {
           {/* Area  */}
           <div className="flex gap-2 mt-2 border border-yellow-500">
             {task.areas.map((singleArea, index) => (
-              <div className="p-1 text-white text-[12px] rounded-md px-2 bg-mainColor">
+              <div
+                className="p-1 text-white text-[12px] rounded-md px-2 bg-mainColor"
+                key={index}
+              >
                 <span>{singleArea.name}</span>
               </div>
             ))}
